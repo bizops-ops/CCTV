@@ -23,7 +23,32 @@
 }
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--text);min-height:100vh}
+
+/* ============ LOGIN PAGE ============ */
+.login-page{position:fixed;inset:0;z-index:10000;background:linear-gradient(135deg,#0f172a 0%,#1e3a8a 50%,#0f172a 100%);display:flex;align-items:center;justify-content:center;padding:20px}
+.login-page.hidden{display:none}
+.login-card{background:rgba(255,255,255,.05);backdrop-filter:blur(24px);border:1px solid rgba(255,255,255,.12);border-radius:24px;padding:48px 40px;width:100%;max-width:420px;box-shadow:0 32px 80px rgba(0,0,0,.4)}
+.login-logo{text-align:center;margin-bottom:32px}
+.login-logo-icon{width:64px;height:64px;background:linear-gradient(135deg,#3b82f6,#0ea5e9);border-radius:18px;display:inline-flex;align-items:center;justify-content:center;font-size:32px;box-shadow:0 8px 32px rgba(59,130,246,.5);margin-bottom:16px}
+.login-logo h1{font-family:'Syne',sans-serif;font-weight:800;font-size:26px;color:#fff;letter-spacing:-.5px}
+.login-logo p{font-size:12px;color:rgba(255,255,255,.4);letter-spacing:2px;text-transform:uppercase;margin-top:4px}
+.login-field{margin-bottom:20px}
+.login-field label{display:block;font-size:11px;font-weight:700;color:rgba(255,255,255,.5);letter-spacing:1px;text-transform:uppercase;margin-bottom:8px}
+.login-field input{width:100%;padding:14px 18px;background:rgba(255,255,255,.08);border:1.5px solid rgba(255,255,255,.15);border-radius:12px;font-size:15px;font-family:inherit;color:#fff;transition:all .2s;outline:none}
+.login-field input::placeholder{color:rgba(255,255,255,.25)}
+.login-field input:focus{border-color:rgba(59,130,246,.6);box-shadow:0 0 0 4px rgba(59,130,246,.15);background:rgba(255,255,255,.12)}
+.login-btn{width:100%;padding:15px;background:linear-gradient(135deg,#2563eb,#0ea5e9);color:#fff;border:none;border-radius:12px;font-size:15px;font-weight:700;font-family:inherit;cursor:pointer;transition:all .2s;box-shadow:0 4px 20px rgba(37,99,235,.4);margin-top:8px}
+.login-btn:hover{transform:translateY(-1px);box-shadow:0 8px 32px rgba(37,99,235,.5)}
+.login-btn:active{transform:translateY(0)}
+.login-error{background:rgba(220,38,38,.15);border:1px solid rgba(220,38,38,.3);border-radius:10px;padding:10px 14px;font-size:13px;color:#fca5a5;margin-bottom:16px;display:none;text-align:center}
+.login-error.show{display:block}
+.login-footer{text-align:center;margin-top:28px;font-size:11px;color:rgba(255,255,255,.25)}
+.login-particles{position:absolute;inset:0;overflow:hidden;pointer-events:none}
+.login-particles div{position:absolute;background:rgba(59,130,246,.15);border-radius:50%;animation:floatP 20s infinite linear}
+@keyframes floatP{0%{transform:translateY(100vh) scale(0);opacity:0}10%{opacity:1}90%{opacity:1}100%{transform:translateY(-100vh) scale(1);opacity:0}}
+
 .app{display:flex;min-height:100vh}
+.app.hidden{display:none}
 .sidebar{width:240px;min-height:100vh;background:linear-gradient(180deg,#0f172a 0%,#1e293b 100%);
   display:flex;flex-direction:column;position:fixed;top:0;left:0;bottom:0;z-index:100;box-shadow:4px 0 32px rgba(15,23,42,.25)}
 .main{margin-left:240px;flex:1}
@@ -149,8 +174,6 @@ tbody tr:hover td{background:rgba(219,234,254,.5)}
 .dot{display:inline-block;width:7px;height:7px;border-radius:50%;margin-right:5px}
 .dg{background:var(--green)}.dr{background:var(--red)}.da{background:var(--amber)}.dx{background:var(--muted)}
 .action-btns{display:flex;gap:2px;align-items:center;white-space:nowrap}
-
-/* Access Control Cards */
 .acc-card{background:var(--surface);border:1px solid var(--border);border-radius:14px;overflow:hidden;box-shadow:var(--sh);transition:all .2s}
 .acc-card:hover{box-shadow:var(--sh-hover);transform:translateY(-2px)}
 .acc-card-head{background:linear-gradient(135deg,var(--primary),var(--accent));padding:14px 16px 12px}
@@ -169,10 +192,46 @@ tbody tr:hover td{background:rgba(219,234,254,.5)}
 .acc-person-row:hover .acc-row-actions{opacity:1}
 .acc-add-btn{width:100%;padding:8px;border:1.5px dashed var(--border);border-radius:9px;background:none;cursor:pointer;font-size:12px;color:var(--muted);font-family:inherit;transition:all .2s;margin-top:4px;display:flex;align-items:center;justify-content:center;gap:6px}
 .acc-add-btn:hover{border-color:var(--primary3);color:var(--primary2);background:var(--primary-light)}
+.logout-btn{display:flex;align-items:center;gap:8px;width:100%;padding:10px 12px;border-radius:11px;cursor:pointer;border:none;background:rgba(220,38,38,.1);color:rgba(255,255,255,.55);font-size:13px;font-weight:500;font-family:inherit;transition:all .2s;margin-top:8px}
+.logout-btn:hover{background:rgba(220,38,38,.25);color:#fca5a5}
 </style>
 </head>
 <body>
-<div class="app">
+
+<!-- ============ LOGIN PAGE ============ -->
+<div class="login-page" id="login-page">
+  <div class="login-particles">
+    <div style="width:6px;height:6px;left:10%;animation-delay:0s;animation-duration:18s"></div>
+    <div style="width:4px;height:4px;left:25%;animation-delay:3s;animation-duration:22s"></div>
+    <div style="width:8px;height:8px;left:40%;animation-delay:1s;animation-duration:16s"></div>
+    <div style="width:5px;height:5px;left:55%;animation-delay:5s;animation-duration:20s"></div>
+    <div style="width:3px;height:3px;left:70%;animation-delay:2s;animation-duration:24s"></div>
+    <div style="width:7px;height:7px;left:85%;animation-delay:4s;animation-duration:19s"></div>
+    <div style="width:4px;height:4px;left:15%;animation-delay:7s;animation-duration:21s"></div>
+    <div style="width:6px;height:6px;left:60%;animation-delay:6s;animation-duration:17s"></div>
+  </div>
+  <div class="login-card">
+    <div class="login-logo">
+      <div class="login-logo-icon">📹</div>
+      <h1>CCTV Shield</h1>
+      <p>Pan India Manager</p>
+    </div>
+    <div class="login-error" id="login-error">Invalid credentials. Please try again.</div>
+    <div class="login-field">
+      <label>User ID</label>
+      <input type="text" id="login-id" placeholder="Enter your ID" autocomplete="off">
+    </div>
+    <div class="login-field">
+      <label>Password</label>
+      <input type="password" id="login-pass" placeholder="Enter password" autocomplete="off">
+    </div>
+    <button class="login-btn" onclick="doLogin()">🔐 Sign In</button>
+    <div class="login-footer">Secured access · ZFW Hospitality</div>
+  </div>
+</div>
+
+<!-- ============ MAIN APP ============ -->
+<div class="app hidden" id="main-app">
 <aside class="sidebar">
   <div class="logo">
     <div class="logo-wrap">
@@ -190,9 +249,10 @@ tbody tr:hover td{background:rgba(219,234,254,.5)}
   </nav>
   <div class="sf">
     <div class="sf-user">
-      <div class="sf-av">M</div>
-      <div><div class="sf-name">Manish</div><div class="sf-role">CCTV Administrator</div></div>
+      <div class="sf-av">B</div>
+      <div><div class="sf-name">BizOps</div><div class="sf-role">CCTV Administrator</div></div>
     </div>
+    <button class="logout-btn" onclick="doLogout()">🚪 Sign Out</button>
   </div>
 </aside>
 <main class="main">
@@ -202,7 +262,6 @@ tbody tr:hover td{background:rgba(219,234,254,.5)}
 </div>
 <div class="content">
 
-<!-- MASTER DATA -->
 <section class="section active" id="s-master">
   <div class="stats" id="master-stats"></div>
   <div class="card">
@@ -220,7 +279,6 @@ tbody tr:hover td{background:rgba(219,234,254,.5)}
   </div>
 </section>
 
-<!-- SERVICE LOG -->
 <section class="section" id="s-service">
   <div class="stats" id="svc-stats"></div>
   <div class="card">
@@ -239,7 +297,6 @@ tbody tr:hover td{background:rgba(219,234,254,.5)}
   </div>
 </section>
 
-<!-- ACCESS CONTROL -->
 <section class="section" id="s-access">
   <div class="stats" id="acc-stats" style="margin-bottom:20px"></div>
   <div class="card">
@@ -255,7 +312,6 @@ tbody tr:hover td{background:rgba(219,234,254,.5)}
   </div>
 </section>
 
-<!-- MONITOR -->
 <section class="section" id="s-monitor">
   <div class="stats" id="mon-stats"></div>
   <div class="card">
@@ -279,7 +335,7 @@ tbody tr:hover td{background:rgba(219,234,254,.5)}
 </main>
 </div>
 
-<!-- ======= MODAL: STORE DETAIL ======= -->
+<!-- MODAL: STORE DETAIL -->
 <div class="ov" id="ov-detail">
 <div class="modal" style="max-width:700px">
   <div class="mh"><div class="mt2" id="det-title">📹 Store Detail</div><button class="mc" onclick="closeOv('ov-detail')">✕</button></div>
@@ -287,7 +343,7 @@ tbody tr:hover td{background:rgba(219,234,254,.5)}
 </div>
 </div>
 
-<!-- ======= MODAL: ADD/EDIT STORE ======= -->
+<!-- MODAL: ADD/EDIT STORE -->
 <div class="ov" id="ov-store">
 <div class="modal">
   <div class="mh"><div class="mt2" id="stor-title">➕ Add Store</div><button class="mc" onclick="closeOv('ov-store')">✕</button></div>
@@ -327,7 +383,7 @@ tbody tr:hover td{background:rgba(219,234,254,.5)}
 </div>
 </div>
 
-<!-- ======= MODAL: ADD/EDIT SERVICE ======= -->
+<!-- MODAL: ADD/EDIT SERVICE -->
 <div class="ov" id="ov-svc">
 <div class="modal">
   <div class="mh"><div class="mt2" id="svc-modal-title">🔧 Log Service Entry</div><button class="mc" onclick="closeOv('ov-svc')">✕</button></div>
@@ -376,7 +432,7 @@ tbody tr:hover td{background:rgba(219,234,254,.5)}
 </div>
 </div>
 
-<!-- ======= MODAL: ADD/EDIT ACCESS ======= -->
+<!-- MODAL: ADD/EDIT ACCESS -->
 <div class="ov" id="ov-acc">
 <div class="modal">
   <div class="mh"><div class="mt2" id="acc-modal-title">🔑 Add Access Entry</div><button class="mc" onclick="closeOv('ov-acc')">✕</button></div>
@@ -399,7 +455,7 @@ tbody tr:hover td{background:rgba(219,234,254,.5)}
 </div>
 </div>
 
-<!-- ======= MODAL: ADD/EDIT MONITORING ======= -->
+<!-- MODAL: ADD/EDIT MONITORING -->
 <div class="ov" id="ov-mon">
 <div class="modal">
   <div class="mh"><div class="mt2" id="mon-modal-title">📊 Add Monitoring Entry</div><button class="mc" onclick="closeOv('ov-mon')">✕</button></div>
@@ -436,6 +492,181 @@ tbody tr:hover td{background:rgba(219,234,254,.5)}
 
 <script>
 // ======================================================
+// AUTH
+// ======================================================
+const AUTH_ID = 'Bizops@2026';
+const AUTH_PASS = 'Zippee@123';
+let isLoggedIn = false;
+
+function doLogin(){
+  const id = document.getElementById('login-id').value.trim();
+  const pass = document.getElementById('login-pass').value;
+  if(id === AUTH_ID && pass === AUTH_PASS){
+    isLoggedIn = true;
+    document.getElementById('login-page').classList.add('hidden');
+    document.getElementById('main-app').classList.remove('hidden');
+    document.getElementById('login-error').classList.remove('show');
+    loadAll();
+  } else {
+    document.getElementById('login-error').classList.add('show');
+    document.getElementById('login-pass').value = '';
+  }
+}
+function doLogout(){
+  isLoggedIn = false;
+  document.getElementById('main-app').classList.add('hidden');
+  document.getElementById('login-page').classList.remove('hidden');
+  document.getElementById('login-id').value = '';
+  document.getElementById('login-pass').value = '';
+}
+document.addEventListener('keydown', e => {
+  if(e.key === 'Enter' && !isLoggedIn) doLogin();
+});
+
+// ======================================================
+// RECORDING DATE MAP FROM GSHEET
+// ======================================================
+const REC_DATE_MAP = {
+  'ZD MFC Janakpuri': '2026-03-13',
+  'ZD 2 Hr Janakpuri': '2026-03-13',
+  'ZD BLEP Noida': '2026-02-21',
+  'ZD FNP K R Puram': '2026-02-10',
+  'ZD FNP KR Puram': '2026-02-10',
+  'ZD FNP Sarjapur': null,
+  'ZD Vadgaon Sheri Pune DVR 2': '2026-02-03',
+  'ZD Periyamet': '2026-02-27',
+  'ZD MT JP Nagar DVR 2': '2026-02-09',
+  'ZD MT Gachibowli DVR 2': '2026-01-24',
+  'ZD FNP Bannerghata': '2026-01-19',
+  'ZD FNP BTM Layout': null,
+  'ZD FNP Whitefield': '2026-01-18',
+  'ZD FNP WhiteField': '2026-01-18',
+  'ZD MT Sarjapur DVR 2': '2026-01-19',
+  'ZD ZL Malad DVR': '2026-01-26',
+  'ZD ZL Malad NVR': '2026-01-29',
+  'ZD FNP Vasant Nagar': '2026-01-05',
+  'ZD FNP RT Nagar': null,
+  'ZD FNP Varthur': '2026-01-26',
+  'ZD MT Begur DVR 2': '2026-01-28',
+  'ZD FNP Banaswadi': '2026-02-04',
+  'ZD HQ 5th Floor': null,
+  'ZD FNP Lamington Road': '2026-01-13',
+  'ZD FNP Airoli': '2026-01-20',
+  'ZD FNP Powai': '2025-12-29',
+  'ZD FNP Tipasandara': '2026-01-16',
+  'ZD FNP Marathahalli': null,
+  'ZD FNP Electronic City': '2025-12-31',
+  'ZD FNP Hebbal': null,
+  'ZD FNP Yelankha': null,
+  'ZD FNP Kumarswamy Layout': '2026-01-19',
+  'ZD FNP Colaba': null,
+  'ZD FNP Marol': '2026-01-19',
+  'ZD FNP Banashankari': '2026-01-20',
+  'ZD FNP Basaweshwara Nagar': null,
+  'ZD FNP Koramangala': null,
+  'ZD FNP Vashi': null,
+  'ZD MT Brookfield DVR 2': '2026-02-15',
+  'ZD FNP Andheri West': '2026-01-19',
+  'ZD FNP BKC': '2026-01-21',
+  'ZD FNP Lower Parel': '2026-01-20',
+  'ZD FNP Thane': '2026-01-18',
+  'ZD FNP Mira Road': '2026-01-19',
+  'ZD FNP Kharghar': '2026-01-14',
+  'ZD FKG Dehradun DVR 3': '2026-02-01',
+  'ZD FKG Dehradun DVR 2': '2026-02-23',
+  'ZD FKG Dehradun DVR 1': '2026-02-21',
+  'ZD Topsia': '2026-01-03',
+  'ZD TGS Singsandra': '2025-12-29',
+  'ZD Okhla DVR 1': '2026-03-08',
+  'ZD SRT10 Okhla DVR 2': '2026-02-07',
+  'ZD SRT10 Okhla DVR 1': '2026-02-03',
+  'ZD ZL Ghatkopar DVR 2': '2025-11-29',
+  'ZD ZL Ghatkopar DVR1': '2025-11-29',
+  'ZD SRT10 Andheri': '2026-02-16',
+  'ZD FKG Prayagraj NVR 3': '2026-02-01',
+  'ZD FKG Prayagraj NVR 2': '2026-02-22',
+  'ZD FKG Prayagraj NVR 1': '2026-02-23',
+  'ZD FKG Surat NVR 2': null,
+  'ZD FKG Nasik NVR 3': null,
+  'ZD FKG Nasik NVR 2': null,
+  'ZD FKG Nasik NVR 1': null,
+  'ZD FKG Vadodara NVR 3': null,
+  'ZD FKG Vadodara NVR 2': null,
+  'ZD FKG Vadodara NVR 1': null,
+  'ZD Enchante Dommsandra': null,
+  'ZD FNP Chembur': '2026-01-24',
+  'ZD FKG Siliguri NVR 3': '2026-03-05',
+  'ZD FKG Siliguri NVR 2': '2026-02-21',
+  'ZD FKG Siliguri': null,
+  'ZD Enchante Mahadevapura BLR': null,
+  'ZD FKG Moradabad UP NVR 3': '2026-02-22',
+  'ZD FKG Moradabad UP NVR 2': '2026-02-22',
+  'ZD FKG Moradabad UP NVR 1': '2025-11-20',
+  'ZD FNP Borivali Mumbai': null,
+  'ZD FKG Surat NVR 3': '2026-01-29',
+  'ZD FKG Surat NVR 1': '2026-02-18',
+  'ZD HK Ludhiana': '2026-01-25',
+  'ZD HUFT Koramangala BLR': null,
+  'ZD SRT10 Koramangala BLR': '2026-01-20',
+  'ZD HY Chakala': '2026-01-26',
+  'ZD MT Gachibowli': '2026-01-06',
+  'ZD MT Attapur': '2026-01-18',
+  'ZD MT Nizampet': '2026-01-14',
+  'ZD MT Jakkur': '2026-01-18',
+  'ZD MT Manikonda': '2026-01-24',
+  'ZD CV Whitefield BLR': null,
+  'ZD ST Behala': '2025-11-04',
+  'ZD Okhla DVR 3': '2026-03-05',
+  'ZD TGS Marol': null,
+  'ZD Kalyan Nagar DVR 2': '2026-02-24',
+  'ZD VR Navi Mumbai': '2026-02-07',
+  'ZD CLK Kempapura': '2025-10-13',
+  'ZD Wazirpur 2H': '2025-05-28',
+  'ZD Dilshad Garden Libas DVR 1': '2025-12-16',
+  'ZD Gurgaon 2H': '2025-10-01',
+  'ZD Dilshad Garden 2 Hour DVR 2': '2025-12-15',
+  'ZD Andheri NVR 1': '2026-02-13',
+  'ZD ST Kalyan Nagar': '2026-01-06',
+  'ZD ST Varthur': '2026-01-07',
+  'ZD CLK Kempapura DVR2': '2026-01-12',
+  'ZD CLK kempapura DVR2': '2026-01-12',
+  'ZD HQ 4th Floor': null,
+  'ZD Vadgaon Sheri Pune': '2026-02-15',
+  'ZD Okhla DVR 2': '2026-03-10',
+  'ZD Andheri DVR 4': '2026-02-23',
+  'ZD VR Horamavu': '2026-02-16',
+  'ZD Andheri DVR 3': '2026-02-26',
+  'ZD MT Sarjapur': '2026-01-31',
+  'ZD CC Ghitorni': '2026-02-02',
+  'ZD MT JP Nagar': '2026-01-15',
+  'ZD Andheri DS DVR 2': '2026-02-22',
+  'ZD Andheri DS': '2026-03-02',
+  'ZD Kalyan Nagar DVR 1': '2026-02-02',
+  'ZD Kalyan Nagar dvr1': '2026-02-02',
+  'ZD ST BTM Layout': null,
+  'ZD MT Begur DVR 1': '2026-02-01',
+  'ZD MT Brookfield DVR 1': '2026-02-07',
+  'MD MT Brookfield DVR 1': '2026-02-07',
+  'ZD MT Thyagaraja': '2026-01-26',
+  'ZD Epik Yelankha': null,
+  'ZD MT Basaveshwara Nagar': '2026-01-26',
+  'ZD MT Kalyan Nagar': '2026-01-08',
+  'ZD VR Harmada Jaipur': '2026-02-06',
+  'ZD VR Noida': '2026-02-23',
+  'ZD ST Okhla DVR': null,
+  'ZD DS Manikonda DVR 2': '2026-02-18',
+  'ZD DS Manikonda DVR 1': '2026-02-26',
+  'ZD VR Gurgaon DVR 1': '2026-02-21',
+  'ZD DS Koramangala': null,
+  'ZD Kalyan Nagar': null,
+  'ZD DS Ludhiana': null,
+  'ZD VR Gurgaon DVR 2': '2026-03-06',
+  'ZD HQ 3rd Floor': null,
+  'ZD Koramangala': null,
+  'ZD Andheri NVR': null,
+};
+
+// ======================================================
 // CONFIG & DB
 // ======================================================
 const SB_URL = 'https://eagtjvutbzsrnitpnqqu.supabase.co';
@@ -451,7 +682,15 @@ const SB = {
   async delete(t,id){ const r=await fetch(`${SB_URL}/rest/v1/${t}?id=eq.${id}`,{method:'DELETE',headers:this.h()}); if(!r.ok)throw new Error(`DELETE ${t} failed`) }
 };
 
-function mapStore(r){ return {...r, enc:r.enc_code||'', adminUser:r.admin_user||'', adminPass:r.admin_pass||'', recStart:r.rec_start||''} }
+function mapStore(r){
+  const s = {...r, enc:r.enc_code||'', adminUser:r.admin_user||'', adminPass:r.admin_pass||'', recStart:r.rec_start||''};
+  // Override rec_start with GSheet recording date
+  const gDate = REC_DATE_MAP[s.name];
+  if(gDate !== undefined){
+    s.recStart = gDate || '';
+  }
+  return s;
+}
 function mapService(r){ return {...r, store:r.store_name||'', issueDate:r.issue_date||'', issueType:r.issue_type||'', workDone:r.work_done||'', vendorResp:r.vendor_response||'', verifiedBy:r.verified_by||'', cost:parseFloat(r.cost)||0} }
 function mapMonitoring(r){ return {...r, store:r.store_name||'', dvrStatus:r.dvr_status||'working', issueType:r.issue_type||'', camVision:r.cam_vision||'Clear', checkDate:r.check_date||'', camCount:parseInt(r.cam_count)||0, notWorking:parseInt(r.not_working)||0} }
 
@@ -460,7 +699,7 @@ function mapMonitoring(r){ return {...r, store:r.store_name||'', dvrStatus:r.dvr
 // ======================================================
 function today(){ return new Date().toISOString().slice(0,10) }
 function fmtD(d){ if(!d)return '—'; try{return new Date(d).toLocaleDateString('en-IN',{day:'2-digit',month:'short',year:'numeric'})}catch(e){return d} }
-function daysSince(d){ if(!d)return '—'; const ms=new Date('2026-03-15')-new Date(d); return ms<0?'—':Math.round(ms/86400000) }
+function daysSince(d){ if(!d)return '—'; const ms=new Date('2026-03-18')-new Date(d); return ms<0?'—':Math.round(ms/86400000) }
 function getCities(){ return [...new Set(DB.stores.map(s=>s.city).filter(Boolean))].sort() }
 function getEntities(){ return [...new Set(DB.stores.map(s=>s.entity).filter(Boolean))].sort() }
 function showToast(m,t=''){ const el=document.getElementById('toast'); el.textContent=m; el.className=`toast ${t} show`; setTimeout(()=>el.className='toast',2800) }
@@ -479,7 +718,6 @@ const PAGES = {
   master:{title:'🏪 Master Data',sub:'DVR inventory, cameras & encryption codes',actions:`<button class="btn btn-p" onclick="openAddStore()">＋ Add Store</button>`},
   service:{title:'🔧 Service Log',sub:'Track all service requests, vendor work & resolutions',actions:`<button class="btn btn-p" onclick="openSvcModal()">＋ Log Service</button>`},
   access:{title:'🔑 Access Control',sub:'Store-wise camera access assignments',actions:`<button class="btn btn-p" onclick="openAccModal()">＋ Add Access</button>`},
-
   monitor:{title:'📊 CCTV Report',sub:'Pan India camera visibility monitoring',actions:''},
 };
 function nav(page){
@@ -542,7 +780,7 @@ function renderMaster(){
       <td><div style="display:flex;align-items:center;gap:8px"><span style="font-weight:700;color:var(--primary2)">${s.cameras}</span><div class="pbar"><div class="pbar-inner" style="width:${pct}%"></div></div><span style="font-size:11px;color:var(--muted)">${pct}%</span></div></td>
       <td><span class="badge ${empty>0?'ba':'bg'}">${empty}</span></td>
       <td style="font-size:11px;color:var(--muted)">${fmtD(s.recStart)}</td>
-      <td><span class="badge bp">${days}d</span></td>
+      <td>${s.recStart?`<span class="badge bp">${days}d</span>`:'<span style="color:var(--muted)">—</span>'}</td>
       <td>
         <div class="action-btns">
           <button class="ab" onclick="showStoreDetail('${s.id}')" title="View">👁️</button>
@@ -580,8 +818,8 @@ function showStoreDetail(sid){
       </div>
       <div class="info-tile">
         <div class="info-tile-label">📅 Recording Since</div>
-        <div class="info-tile-val">${fmtD(s.recStart)}</div>
-        <div style="font-size:11px;color:var(--purple);font-weight:700;margin-top:3px">🗓️ ${daysSince(s.recStart)} days</div>
+        <div class="info-tile-val">${s.recStart?fmtD(s.recStart):'—'}</div>
+        ${s.recStart?`<div style="font-size:11px;color:var(--purple);font-weight:700;margin-top:3px">🗓️ ${daysSince(s.recStart)} days</div>`:''}
       </div>
     </div>
     ${s.remarks?`<div style="background:var(--amber-l);border-radius:10px;padding:12px;margin-bottom:12px;font-size:12px;border:1px solid #fde68a"><b>📝 Remarks:</b> ${s.remarks}</div>`:''}
@@ -635,7 +873,7 @@ async function saveStore(){
   const city=document.getElementById('st-city').value.trim();
   const name=document.getElementById('st-name').value.trim();
   if(!city||!name){showToast('City and Store name required','red');return}
-  const data={city,entity:document.getElementById('st-ent').value.trim(),name,serial:document.getElementById('st-serial').value.trim(),enc_code:document.getElementById('st-enc').value.trim(),admin_user:document.getElementById('st-admin-user').value.trim(),admin_pass:document.getElementById('st-admin-pass').value.trim(),remarks:document.getElementById('st-remarks').value.trim(),channels:parseInt(document.getElementById('st-ch').value),cameras:parseInt(document.getElementById('st-cams').value)||0,rec_start:document.getElementById('st-rec').value,status:document.getElementById('st-status').value};
+  const data={city,entity:document.getElementById('st-ent').value.trim(),name,serial:document.getElementById('st-serial').value.trim(),enc_code:document.getElementById('st-enc').value.trim(),admin_user:document.getElementById('st-admin-user').value.trim(),admin_pass:document.getElementById('st-admin-pass').value.trim(),remarks:document.getElementById('st-remarks').value.trim(),channels:parseInt(document.getElementById('st-ch').value),cameras:parseInt(document.getElementById('st-cams').value)||0,rec_start:document.getElementById('st-rec').value||null,status:document.getElementById('st-status').value};
   try{
     if(editSid){
       const [updated]=await SB.update('stores',editSid,data);
@@ -770,7 +1008,7 @@ async function delSvc(id){
 }
 
 // ======================================================
-// ACCESS CONTROL — Table view with Edit/Delete
+// ACCESS CONTROL
 // ======================================================
 let editAccId=null;
 function openAccModal(city='',brand='',store=''){
@@ -788,9 +1026,7 @@ function openAccModal(city='',brand='',store=''){
   dl2.innerHTML=DB.stores.map(s=>`<option value="${s.name}">`).join('');
   openOv('ov-acc');
 }
-function openAccModalForStore(city,brand,store){
-  openAccModal(city,brand,store);
-}
+function openAccModalForStore(city,brand,store){ openAccModal(city,brand,store) }
 function editAccess(id){
   const a=DB.access.find(x=>x.id===id); if(!a)return;
   editAccId=id;
@@ -834,68 +1070,38 @@ function renderAccess(){
   const q=document.getElementById('ac-q').value.toLowerCase();
   const cf=document.getElementById('ac-city').value;
   const bf=document.getElementById('ac-brand').value;
-
-  // Filter individual rows first
   const filtered=DB.access.filter(a=>
     (!cf||a.city===cf)&&(!bf||a.brand===bf)&&
     ((a.store_name||a.store||'')+(a.email||'')+(a.person_name||'')+(a.city||'')).toLowerCase().includes(q)
   );
-
-  // Group by city+store key
   const groups={};
   filtered.forEach(a=>{
     const storeName=a.store_name||a.store||'';
     const key=`${a.city}||${storeName}`;
-    if(!groups[key]){
-      groups[key]={city:a.city,brand:a.brand,store:storeName,people:[]};
-    }
+    if(!groups[key])groups[key]={city:a.city,brand:a.brand,store:storeName,people:[]};
     groups[key].people.push(a);
   });
-
   const groupArr=Object.values(groups).sort((a,b)=>{
     if(a.city!==b.city)return a.city.localeCompare(b.city);
     return a.store.localeCompare(b.store);
   });
-
-  // Stats
   const totalStores=groupArr.length;
   const totalPeople=filtered.length;
   const cities=[...new Set(filtered.map(a=>a.city).filter(Boolean))].length;
   const avgPerStore=totalStores?Math.round(totalPeople/totalStores*10)/10:0;
-
-  // Render stats if element exists
   const statsEl=document.getElementById('acc-stats');
   if(statsEl) statsEl.innerHTML=`
     <div class="stat"><div class="stat-ic ic-bl">🏪</div><div><div class="stat-v">${totalStores}</div><div class="stat-l">Stores with Access</div></div></div>
     <div class="stat"><div class="stat-ic ic-gr">👥</div><div><div class="stat-v">${totalPeople}</div><div class="stat-l">Total Access Entries</div></div></div>
     <div class="stat"><div class="stat-ic ic-pu">📍</div><div><div class="stat-v">${cities}</div><div class="stat-l">Cities</div></div></div>
     <div class="stat"><div class="stat-ic ic-am">📊</div><div><div class="stat-v">${avgPerStore}</div><div class="stat-l">Avg per Store</div></div></div>`;
-
   const body=document.getElementById('ac-body');
-  if(!groupArr.length){
-    body.innerHTML=`<div style="grid-column:1/-1;text-align:center;padding:48px;color:var(--muted)">No access entries found</div>`;
-    return;
-  }
-
+  if(!groupArr.length){body.innerHTML=`<div style="grid-column:1/-1;text-align:center;padding:48px;color:var(--muted)">No access entries found</div>`;return}
   const avatarColors=['av-colors','av-colors2','av-colors3'];
-  // Gradient palette per city
   const cityGrads={};
-  const grads=[
-    'linear-gradient(135deg,#1e40af,#0ea5e9)',
-    'linear-gradient(135deg,#059669,#0ea5e9)',
-    'linear-gradient(135deg,#7c3aed,#2563eb)',
-    'linear-gradient(135deg,#d97706,#059669)',
-    'linear-gradient(135deg,#db2777,#7c3aed)',
-    'linear-gradient(135deg,#0d9488,#2563eb)',
-    'linear-gradient(135deg,#dc2626,#d97706)',
-    'linear-gradient(135deg,#1e40af,#7c3aed)',
-  ];
+  const grads=['linear-gradient(135deg,#1e40af,#0ea5e9)','linear-gradient(135deg,#059669,#0ea5e9)','linear-gradient(135deg,#7c3aed,#2563eb)','linear-gradient(135deg,#d97706,#059669)','linear-gradient(135deg,#db2777,#7c3aed)','linear-gradient(135deg,#0d9488,#2563eb)','linear-gradient(135deg,#dc2626,#d97706)','linear-gradient(135deg,#1e40af,#7c3aed)'];
   let gradIdx=0;
-  function cityGrad(city){
-    if(!cityGrads[city]){cityGrads[city]=grads[gradIdx%grads.length];gradIdx++}
-    return cityGrads[city];
-  }
-
+  function cityGrad(city){if(!cityGrads[city]){cityGrads[city]=grads[gradIdx%grads.length];gradIdx++}return cityGrads[city]}
   body.innerHTML=groupArr.map(g=>{
     const grad=cityGrad(g.city);
     const peopleHTML=g.people.map((a,i)=>{
@@ -914,20 +1120,15 @@ function renderAccess(){
         </div>
       </div>`;
     }).join('');
-
     return `<div class="acc-card">
       <div class="acc-card-head" style="background:${grad}">
         <div class="acc-card-store">${g.store||'Unknown Store'}</div>
         <div class="acc-card-meta">📍 ${g.city}${g.brand?` · ${g.brand}`:''}</div>
-        <div class="acc-card-badges">
-          <span class="acc-badge-count">👥 ${g.people.length} access holder${g.people.length!==1?'s':''}</span>
-        </div>
+        <div class="acc-card-badges"><span class="acc-badge-count">👥 ${g.people.length} access holder${g.people.length!==1?'s':''}</span></div>
       </div>
       <div class="acc-card-body">
         ${peopleHTML}
-        <button class="acc-add-btn" onclick="openAccModalForStore('${g.city}','${g.brand||''}','${g.store.replace(/'/g,"\\'")}')">
-          ＋ Add person to this store
-        </button>
+        <button class="acc-add-btn" onclick="openAccModalForStore('${g.city}','${g.brand||''}','${g.store.replace(/'/g,"\\'")}')">＋ Add person to this store</button>
       </div>
     </div>`;
   }).join('');
@@ -1044,10 +1245,8 @@ function downloadReport(){
   const closed=all.filter(m=>m.dvrStatus==='Store Closed'), na=all.filter(m=>m.dvrStatus==='Not accessible');
   const cityBreakdown={};
   all.forEach(m=>{if(!cityBreakdown[m.city])cityBreakdown[m.city]={w:0,i:0,c:0,n:0};const k=m.dvrStatus==='working'?'w':m.dvrStatus==='Issue'?'i':m.dvrStatus==='Store Closed'?'c':'n';cityBreakdown[m.city][k]++});
-  const issueByType={};
-  issues.forEach(m=>{const k=m.issueType||'Unknown';issueByType[k]=(issueByType[k]||0)+1});
   const totalCities=[...new Set(all.map(m=>m.city))].length;
-  const rdate='15 March 2026';
+  const rdate='18 March 2026';
   const fD=d=>{try{return new Date(d).toLocaleDateString('en-IN',{day:'2-digit',month:'short',year:'numeric'})}catch(e){return d||'—'}};
   const pct=(n,t)=>t>0?Math.round(n/t*100):0;
   const statusBadge=st=>{
@@ -1072,7 +1271,7 @@ function downloadReport(){
   @media print{body{background:#fff;padding:8px}.no-print{display:none}}
   </style></head><body><div class="wrap">
   <div class="header"><div class="h-title">📹 CCTV Visibility Report — Pan India</div>
-  <div class="h-meta"><span>📅 ${rdate}</span><span>👤 Manish</span><span>🏪 ${all.length} stores</span><span>🗺️ ${totalCities} cities</span>${cf?`<span>🔍 ${cf}</span>`:''}</div>
+  <div class="h-meta"><span>📅 ${rdate}</span><span>👤 BizOps</span><span>🏪 ${all.length} stores</span><span>🗺️ ${totalCities} cities</span>${cf?`<span>🔍 ${cf}</span>`:''}</div>
   <button class="no-print" onclick="window.print()" style="margin-top:12px;background:rgba(255,255,255,.2);border:1px solid rgba(255,255,255,.3);color:#fff;padding:7px 16px;border-radius:8px;cursor:pointer;font-size:12px">🖨️ Print / PDF</button></div>
   <div class="kpi-row">
   <div class="kpi kpi-w"><div class="kpi-num">${working.length}</div><div class="kpi-label">✅ Working (${pct(working.length,all.length)}%)</div></div>
@@ -1083,7 +1282,7 @@ function downloadReport(){
   ${issues.length?`<div class="section"><div class="sec-head">⚠️ Active Issues (${issues.length})</div><table><thead><tr><th>#</th><th>City</th><th>Store</th><th>Issue Type</th><th>Check Date</th><th>Cams</th><th>Remarks</th></tr></thead><tbody>${issues.map((m,i)=>`<tr><td>${i+1}</td><td><b>${m.city}</b></td><td>${m.store||m.store_name}</td><td>${m.issueType||'—'}</td><td>${fD(m.checkDate)}</td><td>${m.camCount||0}</td><td>${m.remarks&&m.remarks!=='NA'?m.remarks:'—'}</td></tr>`).join('')}</tbody></table></div>`:''}
   <div class="section"><div class="sec-head">🗺️ City Summary</div><table><thead><tr><th>City</th><th>✅ Working</th><th>⚠️ Issue</th><th>🔒 Closed</th><th>🚫 N/A</th><th>Total</th></tr></thead><tbody>${Object.entries(cityBreakdown).sort().map(([city,d])=>{const tot=(d.w||0)+(d.i||0)+(d.c||0)+(d.n||0);return`<tr><td><b>${city}</b></td><td style="color:#059669;font-weight:700">${d.w||0}</td><td style="color:${d.i?'#dc2626':'#cbd5e1'};font-weight:${d.i?700:400}">${d.i||0}</td><td>${d.c||0}</td><td>${d.n||0}</td><td><b>${tot}</b></td></tr>`}).join('')}</tbody></table></div>
   <div class="section"><div class="sec-head">📋 All Stores (${all.length})</div><table><thead><tr><th>#</th><th>City</th><th>Store</th><th>Status</th><th>Issue Type</th><th>Vision</th><th>Ch</th><th>Cams</th><th>Check Date</th><th>Remarks</th></tr></thead><tbody>${all.map((m,i)=>`<tr><td>${i+1}</td><td><b>${m.city}</b></td><td>${m.store||m.store_name}</td><td>${statusBadge(m.dvrStatus)}</td><td style="font-size:11px">${m.issueType||'—'}</td><td>${m.camVision}</td><td>${m.channel||'—'}</td><td><b>${m.camCount||0}</b></td><td style="white-space:nowrap">${fD(m.checkDate)}</td><td style="font-size:11px">${m.remarks&&m.remarks!=='NA'?m.remarks:'—'}</td></tr>`).join('')}</tbody></table></div>
-  <div class="footer">CCTV Shield — Pan India Manager &nbsp;·&nbsp; ${rdate} &nbsp;·&nbsp; Prepared by Manish</div>
+  <div class="footer">CCTV Shield — Pan India Manager &nbsp;·&nbsp; ${rdate} &nbsp;·&nbsp; Prepared by BizOps</div>
   </div></body></html>`;
   const blob=new Blob([html],{type:'text/html;charset=utf-8'});
   const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=`CCTV_Report_${rdate.replace(/ /g,'_')}.html`;a.click();
@@ -1140,7 +1339,6 @@ async function loadAll(){
     setTimeout(()=>{showLoader(false);updateBadges();nav('master')},2000);
   }
 }
-loadAll();
 </script>
 </body>
 </html>
